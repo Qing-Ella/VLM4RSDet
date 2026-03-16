@@ -8,17 +8,3 @@ VLM4RSDet is a novel collaborative training framework that leverages vision-lang
 <div align="center">
 <img src="network.png"/>
 </div>
-
-## Citation
-
-Welcome to cite this project in your research.
-
-```
-@InProceedings{,
-    author={Shi, Shuohao and Fang, Qiang and Xu, Xin},
-    title={VLM4RSDet: Collaborative Optimization with Vision-Language Model for Enhancing Remote Sensing Object Detection},
-    booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-    year={2026},
-    pages={-}
-}
-```
