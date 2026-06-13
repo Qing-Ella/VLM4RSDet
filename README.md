@@ -80,8 +80,6 @@ Test the trained weight using a single GPU.
 python tools/test.py configs/VLM4RSDet/AI-TOD/faster-rcnn_r50_fpn_2x_AI-TOD.py work_dirs/VLM4RSDet/AI-TOD/faster-rcnn_r50_fpn_2x_AI-TOD/epoch_24.pth
 ```
 
-For more comprehensive evaluation metrics, we recommend using the AI-TOD evaluation metric. Please refer to [RFLA](https://github.com/Chasel-Tsui/mmdet-rfla) and [cocoapi-aitod](https://github.com/jwwangchn/cocoapi-aitod) for implementation details.
-
 
 ## Citation
 
