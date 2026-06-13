@@ -4,8 +4,8 @@ _base_ = [
     '../../_base_/schedules/schedule_1x.py', '../../_base_/default_runtime.py'
 ]
 
-max_epochs = 24
-work_dir = 'work_dirs/VLM4RSDet/AI-TOD/faster-rcnn_r50_fpn_2x_AI-TOD'
+max_epochs = 12
+work_dir = 'work_dirs/VLM4RSDet/visdrone/faster-rcnn_r50_fpn_1x_visdrone'
 train_batch_size_per_gpu = 2
 train_num_workers = 1
 save_epoch_intervals = 1
@@ -61,7 +61,7 @@ model = dict(
             in_channels=256,
             fc_out_channels=1024,
             roi_feat_size=7,
-            num_classes=8,
+            num_classes=10,
             bbox_coder=dict(
                 type='DeltaXYWHBBoxCoder',
                 target_means=[0., 0., 0., 0.],
@@ -123,7 +123,7 @@ model = dict(
     ))
 
 dataset_type = 'CocoDataset'
-data_root = 'data/AI-TOD/'
+data_root = 'data/visdrone/'
 
 backend_args = None
 
@@ -152,7 +152,7 @@ train_dataloader = dict(
     batch_sampler=dict(type='AspectRatioBatchSampler'),
     dataset=dict(
         type=dataset_type,
-        data_root=data_root + 'trainval/',
+        data_root=data_root + 'train/',
         ann_file='annotations/result.json',
         data_prefix=dict(img='images/'),
         filter_cfg=dict(filter_empty_gt=False, min_size=32),
@@ -166,7 +166,7 @@ val_dataloader = dict(
     sampler=dict(type='DefaultSampler', shuffle=False),
     dataset=dict(
         type=dataset_type,
-        data_root=data_root + 'test/',
+        data_root=data_root + 'val/',
         ann_file='annotations/result.json',
         data_prefix=dict(img='images/'),
         test_mode=True,
@@ -181,7 +181,7 @@ test_dataloader = dict(
     sampler=dict(type='DefaultSampler', shuffle=False),
     dataset=dict(
         type=dataset_type,
-        data_root=data_root + 'test/',
+        data_root=data_root + 'val/',
         ann_file='annotations/result.json',
         data_prefix=dict(img='images/'),
         test_mode=True,
@@ -190,14 +190,14 @@ test_dataloader = dict(
 
 val_evaluator = dict(
     type='CocoMetric',
-    ann_file=data_root + 'test/annotations/result.json',
+    ann_file=data_root + 'val/annotations/result.json',
     metric='bbox',
     format_only=False,
     backend_args=backend_args)
 
 test_evaluator = dict(
     type='CocoMetric',
-    ann_file=data_root + 'test/annotations/result.json',
+    ann_file=data_root + 'val/annotations/result.json',
     metric='bbox',
     format_only=False,
     backend_args=backend_args)
@@ -218,9 +218,9 @@ param_scheduler = [
     dict(
         type='MultiStepLR',
         begin=0,
-        end=24,
+        end=12,
         by_epoch=True,
-        milestones=[16, 22],
+        milestones=[8, 11],
         gamma=0.1)
 ]
 

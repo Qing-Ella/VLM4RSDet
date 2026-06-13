@@ -16,8 +16,8 @@ class CocoDataset(BaseDetDataset):
 
     METAINFO = {
         'classes':
-        ('airplane', 'bridge', 'storage-tank', 'ship', 
-         'swimming-pool', 'vehicle', 'person', 'wind-mill'),
+        ('pedestrian', 'people', 'bicycle', 'car', 'van', 
+         'truck', 'tricycle', 'awning-tricycle', 'bus', 'motor'),
         # palette is a list of color tuples, which is used for visualization.
         'palette':
         [(220, 20, 60), (119, 11, 32), (0, 0, 142), (0, 0, 230), (106, 0, 228),

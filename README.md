@@ -58,26 +58,29 @@ You will see a new image `demo.jpg` on your `./outputs/vis` folder, where boundi
 
 ## Model Zoo
 
-[🤗Faster R-CNN w/ VLM4RSDet on AI-TOD](https://huggingface.co/cszzshi/VLM4RSDet).
+[🤗Faster R-CNN w/ VLM4RSDet on VisDrone](https://huggingface.co/cszzshi/VLM4RSDet).
 
 [🤗Florence-2-Base](https://huggingface.co/microsoft/Florence-2-base).
 
 ## Dataset
 
-The official download link of AI-TOD dataset is on [Extreme Mart](https://www.cvmart.net/dataSets/detail/361).
+The official download link of VisDrone dataset.
 
+ - trainset (1.44 GB): [Baidu Yun](https://pan.baidu.com/s/1K-JtLnlHw98UuBDrYJvw3A) | [Google Drive](https://drive.google.com/file/d/1a2oHjcEcwXP8oUF95qiwrqzACb2YlUhn/view?usp=sharing)
+
+ - valset (0.07 GB): [Baidu Yun](https://pan.baidu.com/s/1jdK_dAxRJeF2Xi50IoML1g) | [Google Drive](https://drive.google.com/file/d/1bxK5zgLn0_L8x276eKkuYA_FzwCIjb59/view?usp=sharing)
 ## Evaluation
 
 Test the trained weight using 4 GPUs.
 
 ```Shell 
-CUDA_VISIBLE_DEVICES=0,1,2,3 tools/dist_test.sh configs/VLM4RSDet/AI-TOD/faster-rcnn_r50_fpn_2x_AI-TOD.py work_dirs/VLM4RSDet/AI-TOD/faster-rcnn_r50_fpn_2x_AI-TOD/epoch_24.pth 4
+CUDA_VISIBLE_DEVICES=0,1,2,3 tools/dist_test.sh configs/VLM4RSDet/visdrone/faster-rcnn_r50_fpn_1x_visdrone.py work_dirs/VLM4RSDet/visdrone/faster-rcnn_r50_fpn_1x_visdrone/epoch_12.pth 4
 ```
 
 Test the trained weight using a single GPU.
 
 ```Shell 
-python tools/test.py configs/VLM4RSDet/AI-TOD/faster-rcnn_r50_fpn_2x_AI-TOD.py work_dirs/VLM4RSDet/AI-TOD/faster-rcnn_r50_fpn_2x_AI-TOD/epoch_24.pth
+python tools/test.py configs/VLM4RSDet/visdrone/faster-rcnn_r50_fpn_1x_visdrone.py work_dirs/VLM4RSDet/visdrone/faster-rcnn_r50_fpn_1x_visdrone/epoch_12.pth
 ```
 
 
