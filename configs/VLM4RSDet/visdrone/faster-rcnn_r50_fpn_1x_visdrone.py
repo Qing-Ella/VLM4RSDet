@@ -61,7 +61,7 @@ model = dict(
             in_channels=256,
             fc_out_channels=1024,
             roi_feat_size=7,
-            num_classes=10,
+            num_classes=25,
             bbox_coder=dict(
                 type='DeltaXYWHBBoxCoder',
                 target_means=[0., 0., 0., 0.],
@@ -123,20 +123,21 @@ model = dict(
     ))
 
 dataset_type = 'CocoDataset'
-data_root = 'data/visdrone/'
+data_root = 'data'
 
 backend_args = None
 
 train_pipeline = [
     dict(type='LoadImageFromFile', backend_args=backend_args),
     dict(type='LoadAnnotations', with_bbox=True),
-    dict(type='Resize', scale=(1520, 1002), keep_ratio=True),
+    dict(type='Resize', scale=(1502, 1002), keep_ratio=True),
     dict(type='RandomFlip', prob=0.5),
     dict(type='PackDetInputs')
 ]
+
 test_pipeline = [
     dict(type='LoadImageFromFile', backend_args=backend_args),
-    dict(type='Resize', scale=(1520, 1002), keep_ratio=True),
+    dict(type='Resize', scale=(1502, 1002), keep_ratio=True),
     # If you don't have a gt annotation, delete the pipeline
     dict(type='LoadAnnotations', with_bbox=True),
     dict(
@@ -144,6 +145,7 @@ test_pipeline = [
         meta_keys=('img_id', 'img_path', 'ori_shape', 'img_shape',
                    'scale_factor'))
 ]
+
 train_dataloader = dict(
     batch_size=train_batch_size_per_gpu,
     num_workers=train_num_workers,
@@ -151,13 +153,16 @@ train_dataloader = dict(
     sampler=dict(type='DefaultSampler', shuffle=True),
     batch_sampler=dict(type='AspectRatioBatchSampler'),
     dataset=dict(
-        type=dataset_type,
-        data_root=data_root + 'train/',
-        ann_file='annotations/result.json',
-        data_prefix=dict(img='images/'),
+        type='CocoDataset',
+        data_root=data_root,
+        ann_file='annotations/train.json',
+        data_prefix=dict(img='images/train/'),
         filter_cfg=dict(filter_empty_gt=False, min_size=32),
         pipeline=train_pipeline,
-        backend_args=backend_args))
+        backend_args=backend_args
+    )
+)
+
 val_dataloader = dict(
     batch_size=train_batch_size_per_gpu,
     num_workers=train_num_workers,
@@ -165,13 +170,15 @@ val_dataloader = dict(
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False),
     dataset=dict(
-        type=dataset_type,
-        data_root=data_root + 'val/',
-        ann_file='annotations/result.json',
-        data_prefix=dict(img='images/'),
+        type='CocoDataset',
+        data_root=data_root,
+        ann_file='annotations/val.json',
+        data_prefix=dict(img='images/val/'),
         test_mode=True,
         pipeline=test_pipeline,
-        backend_args=backend_args))
+        backend_args=backend_args
+    )
+)
 
 test_dataloader = dict(
     batch_size=train_batch_size_per_gpu,
